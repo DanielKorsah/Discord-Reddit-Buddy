@@ -1,7 +1,7 @@
 .idea/
 .vscode/
 dToken.txt
-rToken.txt
+redditSecrets.txt
 *.log
 *.pyc
 __pycache__/ 
