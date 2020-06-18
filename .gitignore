@@ -1,0 +1,6 @@
+.idea/
+.vscode/
+dToken.txt
+*.log
+*.pyc
+__pycache__/ 
