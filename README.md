@@ -12,3 +12,5 @@ Commands:
 - /r/controversial [subreddit_name] [number_of_posts=5] - Gets [number_of_posts] posts from  Controversial in [subreddit_name].
 
 Providing a number of posts to fetch is optional. The default number is 5.
+
+### Install Link: https://discord.com/api/oauth2/authorize?client_id=722978593147191308&permissions=18432&scope=bot
