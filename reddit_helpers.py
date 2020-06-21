@@ -17,16 +17,8 @@ def get_nonsticky_submissions(subreddit, sort_type, num=5):
 
 
 def get_submissions(subreddit, sort_type, num):
-    if sort_type == "hot":
-        out_list = subreddit.hot(limit=num)
-    elif sort_type == "new":
-        out_list = subreddit.new(limit=num)
-    elif sort_type == "rising":
-        out_list = subreddit.rising(limit=num)
-    elif sort_type == "controversial":
-        out_list = subreddit.controversial(limit=num)
-    elif sort_type == "top":
-        out_list = subreddit.top(limit=num)
+    # gettatr dynamically switches the function name out for sort_type
+    out_list = getattr(subreddit, sort_type)(limit=num)
     return out_list
 
 
