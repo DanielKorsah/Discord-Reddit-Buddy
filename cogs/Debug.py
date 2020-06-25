@@ -9,12 +9,12 @@ class Debug(dh.commands.Cog):
     def __intit__(self, bot):
         self.bot = bot
 
-    @dh.commands.command(pass_context=True, hidden=True)
+    @dh.commands.command(pass_context=True)
     async def ping(self, ctx):
         await ctx.send("pong!")
 
-    @dh.commands.command(pass_context=True, hidden=True)
-    async def snowflake(self, ctx):
+    @dh.commands.command(pass_context=True)
+    async def server_id(self, ctx):
         await ctx.send(ctx.guild.id)
 
 
