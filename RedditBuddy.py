@@ -13,7 +13,7 @@ async def on_ready():
         if filename.endswith(".py"):
             bot.load_extension(f"cogs.{filename[:-3]}")
 
-    await bot.change_presence(status=discord.Status.online, activity=discord.Game("Suppressing mutants"))
+    await bot.change_presence(status=discord.Status.online, activity=discord.Game("Praise Geraldo"))
     print("Reddit Buddy online!")
 
 # authenticate and run discord bot
