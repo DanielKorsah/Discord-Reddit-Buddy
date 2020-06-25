@@ -1,6 +1,22 @@
 import praw
 
 
+def reddit_auth():
+    # get reddit credentials
+    reddit_token_file = open("redditSecrets.txt", "r")
+    r_id = reddit_token_file.readline().rstrip()
+    r_secret = reddit_token_file.readline().rstrip()
+    r_usersubreddit_name = reddit_token_file.readline().rstrip()
+    r_password = reddit_token_file.readline().rstrip()
+    reddit_token_file.close()
+
+    # reddit authentication
+    reddit = praw.Reddit(client_id=r_id, client_secret=r_secret,
+                         password=r_password, user_agent='USERAGENT',
+                         usersubreddit_name=r_usersubreddit_name)
+    return reddit
+
+
 def get_nonsticky_submissions(subreddit, sort_type, num=5):
 
     start_list = get_submissions(subreddit, sort_type, num)
