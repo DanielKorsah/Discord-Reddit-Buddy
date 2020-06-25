@@ -31,7 +31,7 @@ class Standard(dh.commands.Cog):
             new_list = rh.get_nonsticky_submissions(subreddit, "new", num)
             await dh.post_links(ctx, new_list)
         else:
-            await ctx.send(f"This subreddit caps the number of results reuested at {settings[0][1]}")
+            await ctx.send(f"This server caps the number of results requested at {settings[0][1]}")
 
     @dh.commands.command(pass_context=True)
     async def top(self, ctx, subreddit_name, num=5):
@@ -43,7 +43,7 @@ class Standard(dh.commands.Cog):
             top_list = rh.get_nonsticky_submissions(subreddit, "top", num)
             await dh.post_links(ctx, top_list)
         else:
-            await ctx.send(f"This subreddit caps the number of results reuested at {settings[0][1]}")
+            await ctx.send(f"This server caps the number of results requested at {settings[0][1]}")
 
     @dh.commands.command(pass_context=True)
     async def controversial(self, ctx, subreddit_name, num=5):
@@ -56,7 +56,7 @@ class Standard(dh.commands.Cog):
                 subreddit, "controversial", num)
             await dh.post_links(ctx, cont_list)
         else:
-            await ctx.send(f"This subreddit caps the number of results reuested at {settings[0][1]}")
+            await ctx.send(f"This server caps the number of results requested at {settings[0][1]}")
 
     @dh.commands.command(pass_context=True)
     async def random(self, ctx, subreddit_name):
