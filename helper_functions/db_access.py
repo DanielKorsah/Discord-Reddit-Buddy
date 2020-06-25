@@ -17,14 +17,26 @@ def make_table():
     conn.commit()
 
 
-def add_settings(id, results, nsfw):
+def add_settings(id, results, maximum, nsfw):
     c = conn.cursor()
     c.execute("""
                 --sql
-                INSERT OR REPLACE INTO servers
-                VALUES (:id, :results, :nsfw)
+                INSERT OR REPLACE INTO servers(id, default_results_length, max_results, nsfw_restricted)
+                VALUES (:id, :results, :max_results, :nsfw)
                 --endsql
-            """, {"id": id, "results": results, "nsfw": nsfw})
+            """, {"id": id, "results": results, "nsfw": nsfw, "max_results": maximum})
+    conn.commit()
+
+
+def set_max_results(query_id, val):
+    c = conn.cursor()
+    c.execute("""
+                --sql
+                UPDATE servers
+                SET max_results = :val
+                WHERE id=:query_id
+                --endsql
+            """, {"query_id": query_id, "val": val})
     conn.commit()
 
 
@@ -32,7 +44,7 @@ def get_settings(query_id):
     c = conn.cursor()
     c.execute("""
                 --sql
-                SELECT default_results_length, nsfw_restricted
+                SELECT default_results_length, max_results, nsfw_restricted
                 FROM servers
                 WHERE id=:query_id
                 --endsql
