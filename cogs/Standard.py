@@ -12,6 +12,7 @@ class Standard(dh.commands.Cog):
     @dh.commands.command(pass_context=True)
     async def hot(self, ctx, subreddit_name, num=5):
         settings = db.get_settings(ctx.guild.id)
+        num = settings[0][0]
 
         if num < settings[0][1]:
             subreddit = self.reddit.subreddit(subreddit_name)
@@ -24,6 +25,7 @@ class Standard(dh.commands.Cog):
     @dh.commands.command(pass_context=True)
     async def new(self, ctx, subreddit_name, num=5):
         settings = db.get_settings(ctx.guild.id)
+        num = settings[0][0]
 
         if num < settings[0][1]:
             subreddit = self.reddit.subreddit(subreddit_name)
@@ -36,6 +38,7 @@ class Standard(dh.commands.Cog):
     @dh.commands.command(pass_context=True)
     async def top(self, ctx, subreddit_name, num=5):
         settings = db.get_settings(ctx.guild.id)
+        num = settings[0][0]
 
         if num < settings[0][1]:
             subreddit = self.reddit.subreddit(subreddit_name)
@@ -48,6 +51,7 @@ class Standard(dh.commands.Cog):
     @dh.commands.command(pass_context=True)
     async def controversial(self, ctx, subreddit_name, num=5):
         settings = db.get_settings(ctx.guild.id)
+        num = settings[0][0]
 
         if num < settings[0][1]:
             subreddit = self.reddit.subreddit(subreddit_name)

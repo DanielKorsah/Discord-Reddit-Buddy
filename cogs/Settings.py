@@ -37,6 +37,11 @@ class Settings(dh.commands.Cog):
         db.set_max_results(ctx.guild.id, maximum_results)
         await ctx.send("updated")
 
+    @dh.commands.command(pass_context=True)
+    async def set_default_results(self, ctx, default_results_number):
+        db.set_default_results(ctx.guild.id, default_results_number)
+        await ctx.send("updated")
+
 
 def setup(bot):
     bot.add_cog(Settings(bot))

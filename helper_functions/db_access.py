@@ -40,6 +40,18 @@ def set_max_results(query_id, val):
     conn.commit()
 
 
+def set_default_results(query_id, val):
+    c = conn.cursor()
+    c.execute("""
+                --sql
+                UPDATE servers
+                SET default_results_length = :val
+                WHERE id=:query_id
+                --endsql
+            """, {"query_id": query_id, "val": val})
+    conn.commit()
+
+
 def get_settings(query_id):
     c = conn.cursor()
     c.execute("""

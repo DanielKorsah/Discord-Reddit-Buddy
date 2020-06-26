@@ -17,8 +17,7 @@ def reddit_auth():
     return reddit
 
 
-def get_nonsticky_submissions(subreddit, sort_type, num=5):
-
+def get_nonsticky_submissions(subreddit, sort_type, num):
     start_list = get_submissions(subreddit, sort_type, num)
 
     # add extra submissions num for each sticky stickes
