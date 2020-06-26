@@ -22,7 +22,7 @@ class Settings(dh.commands.Cog):
         await ctx.send(f"New settings: {db.get_settings(ctx.guild.id)[0]}")
 
     @dh.commands.command(pass_context=True)
-    async def print_settings(self, ctx):
+    async def get_settings(self, ctx):
         await ctx.send(db.get_settings(ctx.guild.id)[0])
 
     @dh.commands.command(pass_context=True)
