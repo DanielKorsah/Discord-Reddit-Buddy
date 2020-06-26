@@ -19,7 +19,11 @@ async def post_links(ctx, posts):
         await ctx.send(post.title + "\n" + post.url)
 
 
-async def print_reddit_results(ctx, subreddit_name, reddit, num: int):
+async def print_reddit_results(ctx, subreddit_name, reddit, num):
+
+    # explicity cast to int
+    num = int(num)
+
     settings = db.get_settings(ctx.guild.id)
     subreddit = reddit.subreddit(subreddit_name)
 
