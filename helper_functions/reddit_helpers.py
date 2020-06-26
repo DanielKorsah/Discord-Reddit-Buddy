@@ -29,6 +29,13 @@ def get_nonsticky_submissions(subreddit, sort_type, num=5):
     # regenerate list with new num
     out_list = get_submissions(subreddit, sort_type, num)
     out_list = strip_stickies(out_list)
+
+    # if num was 1 and there were 2 stickes, makes sure that the second stick is accounted for
+    if len(out_list) == 0:
+        num += 1
+        out_list = get_submissions(subreddit, sort_type, num)
+        out_list = strip_stickies(out_list)
+
     return out_list
 
 
@@ -39,15 +46,15 @@ def get_submissions(subreddit, sort_type, num):
 
 
 def strip_stickies(submissions):
-    return filter(lambda x: not x.stickied, submissions)
+    return list(filter(lambda x: not x.stickied, submissions))
 
 
 def get_links(submissions):
     # lambda to  return the same list but their urls using map and a lambda function
-    links = map(lambda x: x.url, submissions)
+    links = list(map(lambda x: x.url, submissions))
     return links
 
 
 def get_titles(submissions):
-    titles = map(lambda x: x.title, submissions)
+    titles = list(map(lambda x: x.title, submissions))
     return titles
