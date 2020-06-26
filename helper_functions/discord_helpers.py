@@ -21,13 +21,17 @@ async def post_links(ctx, posts):
 
 async def print_reddit_results(ctx, subreddit_name, reddit, num):
     settings = db.get_settings(ctx.guild.id)
+    subreddit = reddit.subreddit(subreddit_name)
+
+    if subreddit.over18 and settings[0][2]:
+        await ctx.send(f"NSFW subreddits are restricted in this server. Admins may adjust this with /r/toggle_nsfw.")
+        return
 
     # if no results length given use server default
     if (num == None):
         num = settings[0][0]
 
     if num < settings[0][1]:
-        subreddit = reddit.subreddit(subreddit_name)
 
         # sort type is the name of the calling fucntion as a string
         sort_type = inspect.stack()[1][3]
