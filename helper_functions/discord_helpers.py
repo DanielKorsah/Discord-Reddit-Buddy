@@ -58,7 +58,7 @@ async def check_nsfw_allowed(ctx, settings):
         await nsfw_warning(ctx)
         allowed = False
 
-    if not settings[0][2]:
+    if settings[0][2]:
         await ctx.send(f"NSFW subreddits are restricted in this server. Admins may adjust this with /r/toggle_nsfw.")
         allowed = False
 
