@@ -22,18 +22,20 @@ async def post_links(ctx, posts):
 async def print_reddit_results(ctx, subreddit_name, reddit, num):
 
     # explicity cast to int
-    num = int(num)
 
     settings = db.get_settings(ctx.guild.id)
     subreddit = reddit.subreddit(subreddit_name)
 
-    if subreddit.over18 and settings[0][2]:
-        await ctx.send(f"NSFW subreddits are restricted in this server. Admins may adjust this with /r/toggle_nsfw.")
-        return
+    # stop executing if nsfw is not allowed to be posted here
+    if subreddit.over18:
+        if (await check_nsfw_allowed(ctx, settings)) == False:
+            return
 
     # if no results length given use server default
-    if (num == None):
-        num = settings[0][0]
+    if (num == ""):
+        num = int(settings[0][0])
+
+    num = int(num)
 
     if num < settings[0][1]:
 
@@ -45,3 +47,27 @@ async def print_reddit_results(ctx, subreddit_name, reddit, num):
         await post_links(ctx, result_list)
     else:
         await ctx.send(f"This server caps the number of results requested at {settings[0][1]}")
+
+
+async def check_nsfw_allowed(ctx, settings):
+    # start with allowed being true and set false if any disqualifying criteria are met
+    # prints all relevant warnings
+    allowed = True
+
+    if not ctx.channel.is_nsfw():
+        await nsfw_warning(ctx)
+        allowed = False
+
+    if not settings[0][2]:
+        await ctx.send(f"NSFW subreddits are restricted in this server. Admins may adjust this with /r/toggle_nsfw.")
+        allowed = False
+
+    return allowed
+
+
+async def nsfw_warning(ctx):
+    embed = discord.Embed(title="NSFW subreddits",
+                          color=discord.Colour.magenta())
+    embed.description = "NSFW content is not allowed outside of channels tagged NSFW. Servers staff can change this in channel settings."
+    embed.set_image(url="https://i.imgur.com/oe4iK5i.gif")
+    await ctx.send(embed=embed)
