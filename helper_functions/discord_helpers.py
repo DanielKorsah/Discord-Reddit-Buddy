@@ -37,7 +37,7 @@ async def print_reddit_results(ctx, subreddit_name, reddit, num):
 
     num = int(num)
 
-    if num < settings[0][1]:
+    if num <= settings[0][1]:
 
         # sort type is the name of the calling fucntion as a string
         sort_type = inspect.stack()[1][3]
