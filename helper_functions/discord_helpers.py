@@ -1,11 +1,12 @@
 import inspect
 import discord
+from datetime import datetime
 from discord.ext import commands
 from discord.ext.commands import bot
 from helper_functions import db_access as db
 from helper_functions import reddit_helpers as rh
 
-client = discord.Client()
+bot = commands.Bot(command_prefix='/r/')
 
 
 def discord_auth():
@@ -85,13 +86,17 @@ async def output_db(ctx):
 
 
 async def access_warning(ctx):
-    guild_id = ctx.guild.id
-    user_id = ctx.message.author.id
-    guild_name = ctx.guild.name
-    log_item = f"Attempted unauthorised database access by USER_ID=[{user_id}] in SERVER_ID=[{guild_id}] with SERVER_NAME=[{guild_name}]\n"
+    guild_id,  guild_name = {ctx.guild.id, ctx.guild.name}
+    user_id, user_name = {ctx.message.author.id, ctx.message.author.name}
+    timestamp = datetime.now().strftime("%Y/%m/%d, %H:%M")
+    log_item = f"Attempted unauthorised database access by USER=[{user_id} - {user_name}] in SERVER=[{guild_id} - {guild_name}] at TIME=[{timestamp}]\n"
 
     log = open("incident_log.txt", "a")
     log.write(log_item)
     log.close()
+
+    dev = bot.get_user(230723477630353408)
+    await dev.send(log_item)
+
     await ctx.send(log_item)
     await ctx.send("This is a secure command for debug and development purposes only. You are not permitted to access the database. This action has been logged.")

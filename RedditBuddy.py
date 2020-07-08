@@ -4,7 +4,7 @@ from helper_functions import discord_helpers as dh
 
 discord = dh.discord
 
-bot = dh.commands.Bot(command_prefix='/r/')
+bot = dh.bot
 
 
 @bot.event

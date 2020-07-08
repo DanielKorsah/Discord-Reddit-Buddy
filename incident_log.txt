@@ -1,2 +1,0 @@
-Attempted unauthorised database access by USER_ID=[230723477630353408] in SERVER_ID=[419640245483732994] with SERVER_NAME=[Dev Testing]
-Attempted unauthorised database access by USER_ID=[107387644563976192] in SERVER_ID=[723316340831813703] with SERVER_NAME=[Dan+Chloe]

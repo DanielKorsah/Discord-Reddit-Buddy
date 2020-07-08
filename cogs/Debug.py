@@ -1,5 +1,6 @@
 from helper_functions import reddit_helpers as rh
 from helper_functions import discord_helpers as dh
+from datetime import datetime
 
 
 class Debug(dh.commands.Cog):
