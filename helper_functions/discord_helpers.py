@@ -5,6 +5,8 @@ from discord.ext.commands import bot
 from helper_functions import db_access as db
 from helper_functions import reddit_helpers as rh
 
+client = discord.Client()
+
 
 def discord_auth():
     # get discord credentials
@@ -71,3 +73,25 @@ async def nsfw_warning(ctx):
     embed.description = "NSFW content is not allowed outside of channels tagged NSFW. Servers staff can change this in channel settings."
     embed.set_image(url="https://i.imgur.com/oe4iK5i.gif")
     await ctx.send(embed=embed)
+
+
+async def output_db(ctx):
+    output_string = "```server_id\t\t\t default_results\tmax_results\tnsfw_restricted"
+    all_rows = db.get_all()
+    for row in all_rows:
+        output_string += f"\n{row[0]}\t{row[1]}\t\t\t\t  {row[3]}\t\t\t {row[2]}"
+    output_string += "```"
+    await ctx.send(output_string)
+
+
+async def access_warning(ctx):
+    guild_id = ctx.guild.id
+    user_id = ctx.message.author.id
+    guild_name = ctx.guild.name
+    log_item = f"Attempted unauthorised database access by USER_ID=[{user_id}] in SERVER_ID=[{guild_id}] with SERVER_NAME=[{guild_name}]\n"
+
+    log = open("incident_log.txt", "a")
+    log.write(log_item)
+    log.close()
+    await ctx.send(log_item)
+    await ctx.send("This is a secure command for debug and development purposes only. You are not permitted to access the database. This action has been logged.")

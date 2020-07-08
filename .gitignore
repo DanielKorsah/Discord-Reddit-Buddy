@@ -1,8 +1,10 @@
 
 dToken.txt
 redditSecrets.txt
+*.incident_log.txt
 *.db
 *.sql
+*.html
 cogs/DatabaseTestCommands.py
 
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,python

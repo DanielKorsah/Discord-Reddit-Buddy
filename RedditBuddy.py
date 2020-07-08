@@ -3,7 +3,7 @@ from helper_functions import discord_helpers as dh
 
 
 discord = dh.discord
-client = discord.Client()
+
 bot = dh.commands.Bot(command_prefix='/r/')
 
 
