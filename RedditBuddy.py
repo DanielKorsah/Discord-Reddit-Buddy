@@ -9,7 +9,9 @@ bot = dh.bot
 
 @bot.event
 async def on_ready():
+    # for each file in cogs directory
     for filename in os.listdir("./cogs"):
+        # if it's a python file, try to load it as a discord cog
         if filename.endswith(".py"):
             try:
                 bot.load_extension(f"cogs.{filename[:-3]}")

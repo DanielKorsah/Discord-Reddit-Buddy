@@ -1,9 +1,11 @@
 import sqlite3
 
+# make db connection when module is imported
 conn = sqlite3.connect("server_data.db")
 
 
 def make_table():
+    # create table for servers settings
     c = conn.cursor()
     c.execute("""
                 --sql
@@ -18,6 +20,7 @@ def make_table():
 
 
 def add_settings(id, results, maximum, nsfw):
+    # insert new settings or update existing ones
     c = conn.cursor()
     c.execute("""
                 --sql
@@ -29,6 +32,7 @@ def add_settings(id, results, maximum, nsfw):
 
 
 def set_max_results(query_id, val):
+    # update max results setting
     c = conn.cursor()
     c.execute("""
                 --sql
@@ -41,6 +45,7 @@ def set_max_results(query_id, val):
 
 
 def set_default_results(query_id, val):
+    # update default results setting
     c = conn.cursor()
     c.execute("""
                 --sql
@@ -53,6 +58,7 @@ def set_default_results(query_id, val):
 
 
 def get_settings(query_id):
+    # return all settings in a row
     c = conn.cursor()
     c.execute("""
                 --sql
@@ -66,6 +72,7 @@ def get_settings(query_id):
 
 
 def get_all():
+    # return entire servers table
     c = conn.cursor()
     c.execute("""
                 --sql
@@ -78,6 +85,7 @@ def get_all():
 
 
 def del_table():
+    # delete the servers table
     c = conn.cursor()
     c.execute("""
                 --sql

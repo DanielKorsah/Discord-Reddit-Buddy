@@ -45,6 +45,7 @@ def get_submissions(subreddit, sort_type, num):
 
 
 def strip_stickies(submissions):
+    # lambda to return list of submission where each submission is not stickied
     return list(filter(lambda x: not x.stickied, submissions))
 
 
@@ -55,5 +56,6 @@ def get_links(submissions):
 
 
 def get_titles(submissions):
+    # lambda to return a list of each submission's title
     titles = list(map(lambda x: x.title, submissions))
     return titles

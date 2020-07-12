@@ -57,10 +57,12 @@ async def check_nsfw_allowed(ctx, settings):
     # prints all relevant warnings
     allowed = True
 
+    # if channel is not tagged nsfw set alllowed to false
     if not ctx.channel.is_nsfw():
         await nsfw_warning(ctx)
         allowed = False
 
+    # if the setting nsfw_restricted is set to true set allowed to false
     if settings[0][2]:
         await ctx.send(f"NSFW subreddits are restricted in this server. Admins may adjust this with /r/toggle_nsfw.")
         allowed = False
@@ -69,6 +71,7 @@ async def check_nsfw_allowed(ctx, settings):
 
 
 async def nsfw_warning(ctx):
+    # embed gif and text reminding users that nsfw is not allowed in a non-nsfw channel
     embed = discord.Embed(title="NSFW subreddits",
                           color=discord.Colour.magenta())
     embed.description = "NSFW content is not allowed outside of channels tagged NSFW. Servers staff can change this in channel settings."
@@ -77,6 +80,7 @@ async def nsfw_warning(ctx):
 
 
 async def output_db(ctx):
+    # poutput tabulated results of SELECT * FROM servers, should only ever be referenced from DEBUG cog and if user using it is the developer (me)
     output_string = "```server_id\t\t\t default_results\tmax_results\tnsfw_restricted"
     all_rows = db.get_all()
     for row in all_rows:
@@ -86,15 +90,18 @@ async def output_db(ctx):
 
 
 async def access_warning(ctx):
+    # warn users who have discovered the database_dump command on github that they are not permitted to access that information and that the attemp has been logged
     guild_id,  guild_name = {ctx.guild.id, ctx.guild.name}
     user_id, user_name = {ctx.message.author.id, ctx.message.author.name}
     timestamp = datetime.now().strftime("%Y/%m/%d, %H:%M")
     log_item = f"Attempted unauthorised database access by USER=[{user_id} - {user_name}] in SERVER=[{guild_id} - {guild_name}] at TIME=[{timestamp}]\n"
 
+    # write to a log file
     log = open("incident_log.txt", "a")
     log.write(log_item)
     log.close()
 
+    # send a log to me
     dev = bot.get_user(230723477630353408)
     await dev.send(log_item)
 

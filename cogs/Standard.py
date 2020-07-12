@@ -8,6 +8,7 @@ class Standard(dh.commands.Cog):
 
     def __intit__(self, bot):
         self.bot = bot
+    # get some number of results from a subreddit sorted by hot, new, top, or controversial
 
     @dh.commands.command(pass_context=True)
     async def hot(self, ctx, subreddit_name, number_of_results=""):
@@ -29,6 +30,7 @@ class Standard(dh.commands.Cog):
         await dh.print_reddit_results(ctx, subreddit_name,
                                       self.reddit, number_of_results)
 
+    # get one random post form a subreddit
     @dh.commands.command(pass_context=True)
     async def random(self, ctx, subreddit_name):
 
