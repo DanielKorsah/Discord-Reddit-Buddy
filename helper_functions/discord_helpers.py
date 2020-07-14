@@ -1,5 +1,6 @@
 import inspect
 import discord
+import asyncio
 from datetime import datetime
 from discord.ext import commands
 from discord.ext.commands import bot
@@ -20,6 +21,7 @@ def discord_auth():
 async def post_links(ctx, posts):
     for post in posts:
         await ctx.send(post.title + "\n" + post.url)
+        await asyncio.sleep(1)
 
 
 async def print_reddit_results(ctx, subreddit_name, reddit, num):
@@ -53,8 +55,7 @@ async def print_reddit_results(ctx, subreddit_name, reddit, num):
 
 
 async def check_nsfw_allowed(ctx, settings):
-    # start with allowed being true and set false if any disqualifying criteria are met
-    # prints all relevant warnings
+    # start with allowed being true and set false if any disqualifying criteria are met, prints all relevant warnings
     allowed = True
 
     # if channel is not tagged nsfw set alllowed to false
@@ -80,7 +81,7 @@ async def nsfw_warning(ctx):
 
 
 async def output_db(ctx):
-    # poutput tabulated results of SELECT * FROM servers, should only ever be referenced from DEBUG cog and if user using it is the developer (me)
+    # output tabulated results of SELECT * FROM servers, should only ever be referenced from DEBUG cog and if user using it is the developer (me)
     output_string = "```server_id\t\t\t default_results\tmax_results\tnsfw_restricted"
     all_rows = db.get_all()
     for row in all_rows:
