@@ -44,15 +44,21 @@ class Settings(dh.commands.Cog):
     @dh.commands.command(pass_context=True)
     @dh.discord.ext.commands.has_permissions(administrator=True)
     async def set_max_results(self, ctx, maximum_results):
-        db.set_max_results(ctx.guild.id, maximum_results)
-        await ctx.send(f"New max results set: {db.get_settings(ctx.guild.id)[0][1]}")
+        if maximum_results.isnumeric():
+            db.set_max_results(ctx.guild.id, maximum_results)
+            await ctx.send(f"New max results set: {db.get_settings(ctx.guild.id)[0][1]}")
+        else:
+            await ctx.send(f"Invalid parameters: all params must be numeric.")
 
     # set the default number of results returned if user does not specify a number
     @dh.commands.command(pass_context=True)
     @dh.discord.ext.commands.has_permissions(administrator=True)
     async def set_default_results(self, ctx, default_results_number):
-        db.set_default_results(ctx.guild.id, default_results_number)
-        await ctx.send(f"New default results length set: {db.get_settings(ctx.guild.id)[0][0]}")
+        if default_results_number.isnumeric():
+            db.set_default_results(ctx.guild.id, default_results_number)
+            await ctx.send(f"New default results length set: {db.get_settings(ctx.guild.id)[0][0]}")
+        else:
+            await ctx.send(f"Invalid parameters: all params must be numeric.")
 
 
 def setup(bot):
