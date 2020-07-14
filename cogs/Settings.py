@@ -18,9 +18,12 @@ class Settings(dh.commands.Cog):
     @dh.commands.command(pass_context=True)
     @dh.discord.ext.commands.has_permissions(administrator=True)
     async def change_all_settings(self, ctx, default_results_length, max_results_length, nsfw):
-        db.add_settings(ctx.guild.id, default_results_length,
-                        max_results_length, nsfw)
-        await ctx.send(f"New settings: {db.get_settings(ctx.guild.id)[0]}")
+        if default_results_length.isnumeric() and max_results_length.isnumeric() and nsfw.isnumeric():
+            db.add_settings(ctx.guild.id, default_results_length,
+                            max_results_length, nsfw)
+            await ctx.send(f"New settings: {db.get_settings(ctx.guild.id)[0]}")
+        else:
+            await ctx.send(f"Invalid parameters: all params must be numeric. Truthiness of number is used for the boolean param.")
 
     # return set of settings in chat
     @dh.commands.command(pass_context=True)
