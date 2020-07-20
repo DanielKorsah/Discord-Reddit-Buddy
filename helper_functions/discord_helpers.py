@@ -1,11 +1,13 @@
 import inspect
 import discord
 import asyncio
+import urllib
 from datetime import datetime
 from discord.ext import commands
 from discord.ext.commands import bot
 from helper_functions import db_access as db
 from helper_functions import reddit_helpers as rh
+
 
 bot = commands.Bot(command_prefix='/r/')
 
@@ -26,12 +28,21 @@ async def post_links(ctx, posts):
 
 async def print_reddit_results(ctx, subreddit_name, reddit, num):
 
-    # explicity cast to int
-
     settings = db.get_settings(ctx.guild.id)
+
+    if not rh.check_exists(subreddit_name):
+        await ctx.send(f"Subreddit [/r/{subreddit_name}] doesn't exist.")
+        return
+
     subreddit = reddit.subreddit(subreddit_name)
 
-    # stop executing if nsfw is not allowed to be posted here
+    # check that we have access to posts on the subreddit
+    accessible, accessibility_message = rh.subreddit_accessible(subreddit)
+    if not accessible:
+        await ctx.send(accessibility_message)
+        return
+
+        # stop executing if nsfw is not allowed to be posted here
     if subreddit.over18:
         if (await check_nsfw_allowed(ctx, settings)) == False:
             return

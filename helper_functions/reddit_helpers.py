@@ -1,4 +1,5 @@
 import praw
+from prawcore import NotFound
 
 
 def reddit_auth():
@@ -59,3 +60,32 @@ def get_titles(submissions):
     # lambda to return a list of each submission's title
     titles = list(map(lambda x: x.title, submissions))
     return titles
+
+
+def check_exists(subreddit_name):
+    exists = True
+    try:
+        reddit_auth().subreddits.search_by_name(subreddit_name, exact=True)
+    except NotFound:
+        exists = False
+    return exists
+
+
+def subreddit_accessible(subreddit):
+    # bypass quarantines or notify about bans
+    try:
+        # this make a request that wil either be an exception or false, i'm just care if there is an exception
+        workaround = subreddit.quarantine
+        # this is to make the warning about not using a variable go away
+        x = workaround
+        workaround = x
+        return {True, ""}
+    except Exception as e:
+        if str(e) == "received 403 HTTP response":
+            subreddit.quaran.opt_in()
+            print(
+                f"Opting in to quarantined subreddit: /r/{subreddit.display_name}")
+            return {True, ""}
+
+        elif str(e) == "received 404 HTTP response":
+            return {False, f"Subreddit [/r/{subreddit.display_name}] is banned or private."}
