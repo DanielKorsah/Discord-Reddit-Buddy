@@ -82,10 +82,13 @@ def subreddit_accessible(subreddit):
         return True, ""
     except Exception as e:
         if str(e) == "received 403 HTTP response":
-            subreddit.quaran.opt_in()
-            print(
-                f"Opting in to quarantined subreddit: /r/{subreddit.display_name}")
-            return True, ""
+            try:
+                subreddit.quaran.opt_in()
+                print(
+                    f"Opting in to quarantined subreddit: /r/{subreddit.display_name}")
+                return True, ""
+            except:
+                return False, f"Subreddit [/r/{subreddit.display_name}] is private."
 
         elif str(e) == "received 404 HTTP response":
-            return False, f"Subreddit [/r/{subreddit.display_name}] is banned or private."
+            return False, f"Subreddit [/r/{subreddit.display_name}] is banned."
