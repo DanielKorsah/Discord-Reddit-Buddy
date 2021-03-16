@@ -25,7 +25,7 @@ async def post_links(ctx, posts):
 
         # embed gif and text reminding users that nsfw is not allowed in a non-nsfw channel
         # embed = discord.Embed(title=post.title,
-                              color = discord.Colour.magenta())
+        #                      color = discord.Colour.magenta())
         # embed.set_image(url=post.url)
         # embed.set_image(url=post.url)
         # await ctx.send(embed=embed)
@@ -41,16 +41,16 @@ async def print_reddit_results(ctx, subreddit_name, reddit, num):
     if not db.verify_record(ctx.guild.id):
         await settings_default_notification(ctx)
 
-    settings=db.get_settings(ctx.guild.id)
+    settings = db.get_settings(ctx.guild.id)
 
     if not rh.check_exists(subreddit_name):
         await ctx.send(f"Subreddit [/r/{subreddit_name}] doesn't exist.")
         return
 
-    subreddit=reddit.subreddit(subreddit_name)
+    subreddit = reddit.subreddit(subreddit_name)
 
     # check that we have access to posts on the subreddit
-    accessible, accessibility_message=rh.subreddit_accessible(subreddit)
+    accessible, accessibility_message = rh.subreddit_accessible(subreddit)
     if not accessible:
         await ctx.send(accessibility_message)
         return
@@ -62,16 +62,16 @@ async def print_reddit_results(ctx, subreddit_name, reddit, num):
 
     # if no results length given use server default
     if (num == ""):
-        num=int(settings[0][0])
+        num = int(settings[0][0])
 
-    num=int(num)
+    num = int(num)
 
     if num <= settings[0][1]:
 
         # sort type is the name of the calling fucntion as a string
-        sort_type=inspect.stack()[1][3]
+        sort_type = inspect.stack()[1][3]
         # get get [num] posts from [sort_type] on [subreddit]
-        result_list=rh.get_nonsticky_submissions(
+        result_list = rh.get_nonsticky_submissions(
             subreddit, f"{sort_type}", num)
         await post_links(ctx, result_list)
     else:
