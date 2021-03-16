@@ -22,5 +22,7 @@ async def on_ready():
     await bot.change_presence(status=discord.Status.online, activity=discord.Game("Praise Geraldo"))
     print("Reddit Buddy online!")
 
-# authenticate and run discord bot
-bot.run(dh.discord_auth())
+
+if __name__ == "__main__":
+    # authenticate and run discord bot
+    bot.run(dh.discord_auth())
