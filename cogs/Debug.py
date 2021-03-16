@@ -33,7 +33,7 @@ class Debug(dh.commands.Cog):
     async def access_fail_test(self, ctx):
         await dh.access_warning(ctx)
 
-    # simulate attempted db access from someone other than myself
+    # simulate remove the current server from the db for test purposes
     @dh.commands.command(pass_context=True, hidden=True)
     async def test_remove(self, ctx):
         if (ctx.message.author.id == 230723477630353408):
