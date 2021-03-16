@@ -15,6 +15,7 @@ async def on_ready():
         if filename.endswith(".py"):
             try:
                 bot.load_extension(f"cogs.{filename[:-3]}")
+                print(f"Cog Loaded: {filename[:-3]}")
             except:
                 print(f"Cog {filename[:-3]} already loaded or doesn't exist.")
 

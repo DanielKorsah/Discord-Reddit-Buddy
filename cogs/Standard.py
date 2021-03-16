@@ -47,4 +47,3 @@ class Standard(dh.commands.Cog):
 
 def setup(bot):
     bot.add_cog(Standard(bot))
-    print("Cog Loaded: Standard")

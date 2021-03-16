@@ -14,6 +14,12 @@ class Settings(dh.commands.Cog):
         print(f"New server: {guild.id} with settings" +
               str(db.get_settings(guild.id)[0]))
 
+    # delete server data after bot is removed or server is closed
+    @dh.commands.Cog.listener()
+    async def on_guild_remove(self, guild):
+        db.delete_settings(guild.id)
+        print(f"Server record deleted: {guild.id}")
+
     # change all settings for current serve at the same time
     @dh.commands.command(pass_context=True)
     @dh.discord.ext.commands.has_permissions(administrator=True)
@@ -63,4 +69,3 @@ class Settings(dh.commands.Cog):
 
 def setup(bot):
     bot.add_cog(Settings(bot))
-    print("Cog Loaded: Settings")

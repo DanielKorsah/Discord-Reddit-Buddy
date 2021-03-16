@@ -22,11 +22,22 @@ def discord_auth():
 
 async def post_links(ctx, posts):
     for post in posts:
-        await ctx.send(post.title + "\n" + post.url)
+        # await ctx.send(post.title + "\n" + post.url)
+
+        # embed gif and text reminding users that nsfw is not allowed in a non-nsfw channel
+        embed = discord.Embed(title=post.title,
+                              color=discord.Colour.magenta())
+        embed.set_image(url=post.url)
+        # embed.set_image(url=post.url)
+        await ctx.send(embed=embed)
+
         await asyncio.sleep(1)
 
 
 async def print_reddit_results(ctx, subreddit_name, reddit, num):
+
+    if not db.verify_record(ctx.guild.id):
+        await settings_default_notification(ctx)
 
     settings = db.get_settings(ctx.guild.id)
 
@@ -109,9 +120,9 @@ async def access_warning(ctx):
     log_item = f"Attempted unauthorised database access by USER=[{user_id} - {user_name}] in SERVER=[{guild_id} - {guild_name}] at TIME=[{timestamp}]\n"
 
     # write to a log file
-    log = open("incident_log.txt", "a")
-    log.write(log_item)
-    log.close()
+    with open("incident_log.txt", "a") as log:
+        log.write(log_item)
+        log.close()
 
     # send a log to me
     dev = bot.get_user(230723477630353408)
@@ -119,3 +130,13 @@ async def access_warning(ctx):
 
     await ctx.send(log_item)
     await ctx.send("This is a secure command for debug and development purposes only. You are not permitted to access the database. This action has been logged.")
+
+
+async def settings_default_notification(ctx):
+
+    log_item = f"DB Error: missing row for {ctx.guild.id}"
+    print(log_item)
+    with open("db_log.txt", "a") as log:
+        log.write(log_item)
+        log.close()
+    await ctx.send("Your settings record could not be verified in the database and has been reset to the default (default number of posts = 5, max posts = 20, nsfw_restricted = true). Use the / r / help command to see how to set your settings back to how you want them.Sorry for the inconvenience. ")

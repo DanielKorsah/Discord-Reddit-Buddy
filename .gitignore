@@ -2,6 +2,7 @@
 dToken.txt
 redditSecrets.txt
 incident_log.txt
+db_log.txt
 *.db
 *.sql
 *.html
