@@ -9,7 +9,7 @@ from helper_functions import db_access as db
 from helper_functions import reddit_helpers as rh
 
 
-bot = commands.Bot(command_prefix='/r/')
+bot = commands.AutoShardedBot(command_prefix='/r/')
 
 
 def discord_auth():
