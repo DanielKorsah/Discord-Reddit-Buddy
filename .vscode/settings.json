@@ -1,3 +1,12 @@
 {
-    "python.pythonPath": "C:\\Program Files\\Python37\\python.exe"
+    "python.pythonPath": "C:\\Program Files\\Python37\\python.exe",
+    "sqltools.connections": [
+        {
+            "previewLimit": 100,
+            "driver": "SQLite",
+            "name": "server_data",
+            "database": "${workspaceFolder:Discord-Reddit-Buddy}/server_data.sqlite"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
 }
