@@ -1,7 +1,7 @@
 import sqlite3
 
 # make db connection when module is imported
-conn = sqlite3.connect("server_data.db")
+conn = sqlite3.connect("server_data.sqlite")
 
 
 def make_table():
