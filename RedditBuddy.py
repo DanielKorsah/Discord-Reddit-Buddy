@@ -23,5 +23,7 @@ async def on_ready():
     print("Reddit Buddy online!")
     print(f"active in {len(bot.guilds)} servers")
 
-# authenticate and run discord bot
-bot.run(dh.discord_auth())
+
+if __name__ == "__main__":
+    # authenticate and run discord bot
+    bot.run(dh.discord_auth())
