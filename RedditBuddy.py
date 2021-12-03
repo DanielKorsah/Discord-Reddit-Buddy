@@ -1,3 +1,4 @@
+#!/usr/local/bin/python3.6
 import os
 from helper_functions import discord_helpers as dh
 
