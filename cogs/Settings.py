@@ -4,7 +4,7 @@ from helper_functions import db_access as db
 
 
 class Settings(dh.commands.Cog):
-    def __intit__(self, bot):
+    def __init__(self, bot):
         self.bot = bot
 
     # initialise default settings (5, 20, 1)

@@ -6,7 +6,7 @@ from helper_functions import db_access as db
 class Standard(dh.commands.Cog):
     reddit = rh.reddit_auth()
 
-    def __intit__(self, bot):
+    def __init__(self, bot):
         self.bot = bot
     # get some number of results from a subreddit sorted by hot, new, top, or controversial
 

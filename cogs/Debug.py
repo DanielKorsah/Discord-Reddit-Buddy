@@ -7,7 +7,7 @@ from datetime import datetime
 class Debug(dh.commands.Cog):
     reddit = rh.reddit_auth()
 
-    def __intit__(self, bot):
+    def __init__(self, bot):
         self.bot = bot
 
     # check that bot responds to stimulus
